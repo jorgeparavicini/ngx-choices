@@ -70,7 +70,7 @@ With `scss`:
 ## Usage
 
 Include the `NgxChoicesModule` in your `AppModule`. This will use the default configuration as described
-in the <a html="https://github.com/Choices-js/Choices#configuration-options">choices.js documentation</a>.
+in the [choices.js documentation](https://github.com/Choices-js/Choices#configuration-options).
 
 ```ts
 @NgModule({
@@ -82,7 +82,8 @@ in the <a html="https://github.com/Choices-js/Choices#configuration-options">cho
 export class AppModule {}
 ```
 
-To configure the library globally use the `forRoot` pattern.
+To configure the library globally use the `forRoot` pattern. 
+This will override the defaults as described in the [choices.js documentation](https://github.com/Choices-js/Choices#configuration-options). 
 
 ```ts
 @NgModule({
@@ -101,21 +102,22 @@ export class AppModule {}
 
 > If you want to silence the warning from `choices.js` about allowHTML, set it globally as shown above to either true or false.
 
-Instantiate a component in your application.
 
-### Text
+### Instantiate Component
+
+To create a `text` input:
 
 ```html
 <ngx-choice type="text"></ngx-choice>
 ```
 
-### Select One
+To create a `single-choice` input:
 
 ```html
 <ngx-choice type="select-one"></ngx-choice>
 ```
 
-### Select multiple
+To create a `multiple-choice` input:
 
 ```html
 <ngx-choice type="select-multiple"></ngx-choice>
@@ -123,10 +125,11 @@ Instantiate a component in your application.
 
 ### Customization & Updates
 
-To customize a single `ngx-choice` bind the wanted input to the component:
+To customize a single `ngx-choice` bind the wanted input to the component. 
+Doing so overrides the default configuration of `choices.js` and the ones given by the `forRoot` pattern.
 
 ```html
-<ngx-choice choices="choices" type="select-multiple"></ngx-choice>
+<ngx-choice [choices]="choices" type="select-multiple"></ngx-choice>
 ```
 
 For the example above create a property `choices` on the component containing all possible choices.
@@ -156,13 +159,13 @@ To receive events from the component subscribe to them in the usual angular way:
 
 ```html
 <ngx-choice
-  choices="choices"
+  [choices]="choices"
   (showDropdown)="showDropdown"
   type="select-multiple"
 ></ngx-choice>
 ```
 
-To find a list of all possible inputs and outputs see the official documentation from <a html="https://github.com/Choices-js/Choices#configuration-options">`choices.js`</a>.
+To find a list of all possible inputs and outputs see the official documentation from [`choices.js`](https://github.com/Choices-js/Choices#configuration-options).
 
 > **_NOTE:_**  All options are named the same as in the original `choices.js` except the `change` event. 
 > This event was renamed to `changeValue` as the original name is a reserved event.
