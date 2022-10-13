@@ -126,7 +126,7 @@ Instantiate a component in your application.
 To customize a single `ngx-choice` bind the wanted input to the component:
 
 ```html
-<ngx-choice choices="choices" type="select-multiple"></ngx-choice>
+<ngx-choice [choices]="choices" type="select-multiple"></ngx-choice>
 ```
 
 For the example above create a property `choices` on the component containing all possible choices.
@@ -156,7 +156,7 @@ To receive events from the component subscribe to them in the usual angular way:
 
 ```html
 <ngx-choice
-  choices="choices"
+  [choices]="choices"
   (showDropdown)="showDropdown"
   type="select-multiple"
 ></ngx-choice>
