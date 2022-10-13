@@ -31,13 +31,13 @@
 With [NPM](https://www.npmjs.com/package/ngx-choices):
 
 ```zsh
-npm install ngx-choices
+npm install ngx-choices.js
 ```
 
 With [Yarn](https://yarnpkg.com/):
 
 ```zsh
-yarn add ngx-choices
+yarn add ngx-choices.js
 ```
 
 ### Stylesheet
