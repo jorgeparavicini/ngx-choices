@@ -62,7 +62,7 @@ With `angular.json`:
 With `scss`:
 
 ```scss
-@import "~ngx-choices/styles/ngx-choices";
+@import "node_modules/ngx-choices/styles/ngx-choices";
 ```
 
 <!-- USAGE EXAMPLES -->
