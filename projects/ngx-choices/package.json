@@ -1,6 +1,29 @@
 {
   "name": "ngx-choices",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "A lightweight wrapper for the choices.js library for angular.",
+  "author": {
+    "email": "jorge.paravicini@hotmail.com",
+    "name": "Jorge Paravicini"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jorgeparavicini/ngx-choices"
+  },
+  "bugs": {
+    "url": "https://github.com/jorgeparavicini/ngx-choices/issues"
+  },
+  "homepage": "https://github.com/jorgeparavicini/ngx-choices",
+  "keywords": [
+    "angular",
+    "typescript",
+    "wrapper",
+    "choices.js",
+    "choices",
+    "input",
+    "form"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^14.2.0",
     "@angular/core": "^14.2.0",
