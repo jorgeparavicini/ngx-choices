@@ -11,7 +11,7 @@
 <h3 align="center">Angular Choices</h3>
 
   <p align="center">
-    A lightweight wrapper for the awesome [choices.js](https://github.com/Choices-js/Choices) library
+    A lightweight wrapper for the awesome <a href="https://github.com/Choices-js/Choices">choices.js</a> library
     <br />
     <a href="https://github.com/Choices-js/Choices#configuration-options"><strong>Explore the configuration options »</strong></a>
     <br />
