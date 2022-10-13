@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ngx-app",
-    "build": "ng build",
-    "build-lib": "ng build ngx-choices --watch",
+    "build": "ng build ngx-choices",
+    "build-watch": "ng build ngx-choices --watch",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

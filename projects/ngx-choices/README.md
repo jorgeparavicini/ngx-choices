@@ -11,7 +11,7 @@
 <h3 align="center">Angular Choices</h3>
 
   <p align="center">
-    A lightweight wrapper for the awesome <a href="https://github.com/Choices-js/Choices">choices.js</a> library by <a href="https://github.com/jshjohnson">Josh Johnson </a>
+    A lightweight wrapper for the awesome [choices.js](https://github.com/Choices-js/Choices) library
     <br />
     <a href="https://github.com/Choices-js/Choices#configuration-options"><strong>Explore the configuration options »</strong></a>
     <br />
@@ -82,8 +82,8 @@ in the [choices.js documentation](https://github.com/Choices-js/Choices#configur
 export class AppModule {}
 ```
 
-To configure the library globally use the `forRoot` pattern. 
-This will override the defaults as described in the [choices.js documentation](https://github.com/Choices-js/Choices#configuration-options). 
+To configure the library globally use the `forRoot` pattern.
+This will override the defaults as described in the [choices.js documentation](https://github.com/Choices-js/Choices#configuration-options).
 
 ```ts
 @NgModule({
@@ -101,7 +101,6 @@ export class AppModule {}
 ```
 
 > If you want to silence the warning from `choices.js` about allowHTML, set it globally as shown above to either true or false.
-
 
 ### Instantiate Component
 
@@ -125,7 +124,7 @@ To create a `multiple-choice` input:
 
 ### Customization & Updates
 
-To customize a single `ngx-choice` bind the wanted input to the component. 
+To customize a single `ngx-choice` bind the wanted input to the component.
 Doing so overrides the default configuration of `choices.js` and the ones given by the `forRoot` pattern.
 
 ```html
@@ -167,7 +166,7 @@ To receive events from the component subscribe to them in the usual angular way:
 
 To find a list of all possible inputs and outputs see the official documentation from [`choices.js`](https://github.com/Choices-js/Choices#configuration-options).
 
-> **_NOTE:_**  All options are named the same as in the original `choices.js` except the `change` event. 
+> **_NOTE:_** All options are named the same as in the original `choices.js` except the `change` event.
 > This event was renamed to `changeValue` as the original name is a reserved event.
 
 <!-- CONTRIBUTING -->
