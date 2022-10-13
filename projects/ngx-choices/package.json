@@ -1,6 +1,6 @@
 {
   "name": "ngx-choices.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight wrapper for the choices.js library for angular.",
   "author": {
     "email": "jorge.paravicini@hotmail.com",
