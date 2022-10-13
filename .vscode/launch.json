@@ -4,10 +4,20 @@
   "configurations": [
     {
       "name": "ng serve",
-      "type": "pwa-chrome",
+      "type": "firefox",
       "request": "launch",
-      "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "webpack:///projects/ngx-app",
+          "path": "${workspaceFolder}/projects/ngx-app"
+        },
+        {
+          "url": "webpack:///projects/ngx-choices/src/lib",
+          "path": "${workspaceFolder}/projects/ngx-choices/src/lib"
+        }
+      ]
     },
     {
       "name": "ng test",

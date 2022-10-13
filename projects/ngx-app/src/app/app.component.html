@@ -1,0 +1,18 @@
+<ngx-choice
+  [choices]="choices"
+  (changeValue)="onSelect()"
+  type="text"
+></ngx-choice>
+
+<ngx-choice
+  [choices]="choices"
+  [itemSelectText]="label"
+  (changeValue)="onSelect()"
+  type="select-one"
+></ngx-choice>
+
+<ngx-choice
+  [choices]="choices"
+  (changeValue)="onSelect()"
+  type="select-multiple"
+></ngx-choice>
