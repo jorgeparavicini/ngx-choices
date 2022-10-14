@@ -1,18 +1,11 @@
-<ngx-choice
+<select
   [choices]="choices"
-  (changeValue)="onSelect()"
-  type="text"
-></ngx-choice>
+  [formControl]="control2"
+  [removeItemButton]="true"
+  multiple
+  ngxChoice
+></select>
 
-<ngx-choice
-  [choices]="choices"
-  [itemSelectText]="label"
-  (changeValue)="onSelect()"
-  type="select-one"
-></ngx-choice>
+<select [choices]="choices" [formControl]="control2" ngxChoice></select>
 
-<ngx-choice
-  [choices]="choices"
-  (changeValue)="onSelect()"
-  type="select-multiple"
-></ngx-choice>
+<input type="text" ngxChoice />

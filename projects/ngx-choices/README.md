@@ -107,28 +107,35 @@ export class AppModule {}
 To create a `text` input:
 
 ```html
-<ngx-choice type="text"></ngx-choice>
+<input type="text" ngxChoice />
 ```
 
 To create a `single-choice` input:
 
 ```html
-<ngx-choice type="select-one"></ngx-choice>
+<select [choices]="choices" ngxChoice></select>
 ```
 
 To create a `multiple-choice` input:
 
 ```html
-<ngx-choice type="select-multiple"></ngx-choice>
+<select [choices]="choices" multiple ngxChoice></select>
 ```
 
 ### Customization & Updates
 
-To customize a single `ngx-choice` bind the wanted input to the component.
-Doing so overrides the default configuration of `choices.js` and the ones given by the `forRoot` pattern.
+
+To customize a single `ngx-choice` bind the wanted input to the directive.
+Doing so overrides the default configuration of `choices.js` and the ones given by the `forRoot` pattern. In the following example we add an icon to all options using the `removeItemButton` input.
 
 ```html
-<ngx-choice [choices]="choices" type="select-multiple"></ngx-choice>
+<select
+  [choices]="choices"
+  [removeItemButton]="true"
+  multiple
+  ngxChoice
+></select>
+
 ```
 
 For the example above create a property `choices` on the component containing all possible choices.
@@ -166,8 +173,23 @@ To receive events from the component subscribe to them in the usual angular way:
 
 To find a list of all possible inputs and outputs see the official documentation from [`choices.js`](https://github.com/Choices-js/Choices#configuration-options).
 
-> **_NOTE:_** All options are named the same as in the original `choices.js` except the `change` event.
-> This event was renamed to `changeValue` as the original name is a reserved event.
+### Forms
+
+To bind the directive to an angular form add the `[formControl]` property, just like with a native form component.
+
+```html
+<ngx-choice
+  [choices]="choices"
+  [formControl]="control"
+  type="select-multiple"
+></ngx-choice>
+```
+
+And add the control property to the component.
+
+```ts
+public control = new FormControl('Option 2');
+```
 
 <!-- CONTRIBUTING -->
 

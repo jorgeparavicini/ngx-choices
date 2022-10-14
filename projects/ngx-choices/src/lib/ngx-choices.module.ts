@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { Options } from 'choices.js';
-import { ChoicesComponent } from './choices.component';
+import { ChoicesDirective } from './choices.component';
 import { NgxChoicesService } from './ngx-choices.service';
 
 @NgModule({
-  declarations: [ChoicesComponent],
+  declarations: [ChoicesDirective],
   imports: [CommonModule],
-  exports: [ChoicesComponent],
+  exports: [ChoicesDirective],
 })
 export class NgxChoicesModule {
   public static forRoot(

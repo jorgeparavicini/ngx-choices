@@ -1,14 +1,13 @@
 import {
-  AfterViewInit,
-  Component,
+  Directive,
   ElementRef,
   EventEmitter,
   forwardRef,
   Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
-  ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import Choices, {
@@ -22,11 +21,9 @@ import Choices, {
   Types,
 } from 'choices.js';
 import Fuse from 'fuse.js';
-import { DetailEvent } from './internal-types.model';
 import { NgxChoicesConfig } from './ngx-choices.service';
 import {
   AddItemData,
-  ChangeData,
   ChoiceData,
   HighlightChoiceData,
   HighlightItemData,
@@ -37,31 +34,28 @@ import {
 
 type Callback = (value: unknown) => void;
 
-@Component({
-  selector: 'ngx-choice[type]',
-  templateUrl: 'choices.component.html',
+@Directive({
+  selector: '[ngxChoice]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ChoicesComponent),
+      useExisting: forwardRef(() => ChoicesDirective),
       multi: true,
     },
   ],
 })
-export class ChoicesComponent
-  implements AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor
+export class ChoicesDirective
+  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
   private instance!: Choices;
 
   private onChange?: Callback;
 
-  @ViewChild('element')
-  private element!: ElementRef;
+  private get type(): 'text' | 'select-one' | 'select-multiple' {
+    return this.element.nativeElement.type;
+  }
 
   //#region Inputs
-
-  @Input()
-  public type!: 'text' | 'select-one' | 'select-multiple';
 
   /**
    * Optionally suppress console errors and warnings.
@@ -633,12 +627,6 @@ export class ChoicesComponent
   public choice = new EventEmitter<ChoiceData>();
 
   /**
-   * Triggered each time an item is added/removed by a user.
-   */
-  @Output()
-  public changeValue = new EventEmitter<ChangeData>();
-
-  /**
    * Triggered when a user types into an input to search choices.
    */
   @Output()
@@ -665,30 +653,31 @@ export class ChoicesComponent
 
   //#endregion
 
-  constructor(private configService: NgxChoicesConfig) {}
+  constructor(
+    private configService: NgxChoicesConfig,
+    private element: ElementRef
+  ) {
+    this.element.nativeElement.addEventListener('change', () =>
+      this.notifyFormChange()
+    );
+    console.log(this.type);
+  }
 
-  public ngAfterViewInit(): void {
+  public ngOnInit(): void {
     this.instance = new Choices(this.element.nativeElement, this.getConfig());
   }
 
+  /**
+   * Recreate the choices.js instance if any input was changed.
+   * We have to recreate it, as the library does not allow changing the config once instantiated.
+   */
   public ngOnChanges() {
     if (!this.instance) return;
-    let value = this.instance.getValue();
-    if (!Array.isArray(value)) {
-      value = [value] as string[] | Item[];
-    }
+    const values = this.getValuesAsArray();
 
     this.instance.destroy();
     this.instance = new Choices(this.element.nativeElement, this.getConfig());
-
-    if (this.type === 'text') {
-      this.instance.setValue(value);
-    } else {
-      value.forEach((x) => {
-        const label = (x as Item)?.label ?? x;
-        this.instance.setChoiceByValue(label);
-      });
-    }
+    this.setValueForAllTypes(values);
   }
 
   public ngOnDestroy(): void {
@@ -696,6 +685,11 @@ export class ChoicesComponent
   }
 
   public writeValue(value: string | string[]): void {
+    this.removeActiveItems();
+    this.setValueForAllTypes(value);
+  }
+
+  private setValueForAllTypes(value: string | string[]): void {
     if (this.type == 'text') {
       if (!Array.isArray(value)) {
         value = [value];
@@ -759,8 +753,10 @@ export class ChoicesComponent
   /**
    * Remove each selectable item.
    */
-  public removeActiveItems(excludeId: number): Choices {
-    return this.instance.removeActiveItems(excludeId);
+  public removeActiveItems(excludeId: number | null = null): Choices {
+    // The method does not require an exclude id, however the type annotation is wrong. Therefore, we cast it to any.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this.instance.removeActiveItems(excludeId as any);
   }
 
   /**
@@ -956,7 +952,7 @@ export class ChoicesComponent
     // The documentation allows a list of strings however the interface of the method is wrong.
     // Therefore we cast it to any to supress the warning.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.instance.setChoiceByValue(value as any);
+    return this.instance?.setChoiceByValue(value as any);
   }
 
   /**
@@ -989,20 +985,12 @@ export class ChoicesComponent
 
   //#endregion
 
-  protected emit<T>(event: Event, output: EventEmitter<T>) {
-    event.stopPropagation();
-    output.emit((event as DetailEvent<T>).detail);
-  }
-
-  protected emitChange(event: Event) {
-    event.stopPropagation();
-    const data = (event as DetailEvent<ChangeData>).detail;
-    this.onChange?.(data.value);
-    this.changeValue.emit(data);
+  private notifyFormChange() {
+    this.onChange?.(this.instance.getValue(true));
   }
 
   private getConfig(): Partial<Options> {
-    const config = this.configService.config;
+    const config = this.configService?.config;
     const c = {
       silent: this.silent ?? config.silent,
       items: this.items ?? config.items,
@@ -1059,5 +1047,14 @@ export class ChoicesComponent
         c[key as keyof Options] === undefined && delete c[key as keyof Options]
     );
     return c;
+  }
+
+  private getValuesAsArray(): string[] {
+    let value = this.instance.getValue();
+    if (!Array.isArray(value)) {
+      value = [value] as string[] | Item[];
+    }
+
+    return value.map((x) => (x as Item)?.value ?? x);
   }
 }

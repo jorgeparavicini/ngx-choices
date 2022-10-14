@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,9 @@ export class AppComponent {
   public title = 'ngx-app';
 
   public label = 'Hello';
+
+  public control = new FormControl('Option 2');
+  public control2 = new FormControl('Option 2');
 
   public choices = [
     {
@@ -28,8 +32,4 @@ export class AppComponent {
       },
     },
   ];
-
-  public onSelect() {
-    this.label = 'Juan';
-  }
 }
