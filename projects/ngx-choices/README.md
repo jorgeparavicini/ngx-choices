@@ -164,11 +164,11 @@ public choices = [
 To receive events from the component subscribe to them in the usual angular way:
 
 ```html
-<ngx-choice
+<select
   [choices]="choices"
   (showDropdown)="showDropdown"
-  type="select-multiple"
-></ngx-choice>
+  ngxChoice
+></select>
 ```
 
 To find a list of all possible inputs and outputs see the official documentation from [`choices.js`](https://github.com/Choices-js/Choices#configuration-options).
@@ -178,11 +178,11 @@ To find a list of all possible inputs and outputs see the official documentation
 To bind the directive to an angular form add the `[formControl]` property, just like with a native form component.
 
 ```html
-<ngx-choice
+<select
   [choices]="choices"
   [formControl]="control"
-  type="select-multiple"
-></ngx-choice>
+  ngxChoice
+></select>
 ```
 
 And add the control property to the component.
