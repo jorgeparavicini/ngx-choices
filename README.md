@@ -23,8 +23,8 @@
     <a href="https://github.com/jorgeparavicini/ngx-choices/issues">Report Bug</a>
     ·
     <a href="https://github.com/jorgeparavicini/ngx-choices/issues">Request Feature</a>
-    </p>
-    </div>
+  </p>
+</div>
 
 ## Installation
 
@@ -52,11 +52,11 @@ With `angular.json`:
   "build": {
     ...,
     "styles": [
-    "node-modules/ngx-choices/styles/ngx-choices.scss"
+      "node-modules/ngx-choices/styles/ngx-choices.scss"
     ],
     ...,
-    }
-    }
+  }
+}
 ```
 
 With `scss`:
@@ -78,8 +78,8 @@ in the [choices.js documentation](https://github.com/Choices-js/Choices#configur
   imports: [BrowserModule, NgxChoicesModule],
   providers: [],
   bootstrap: [AppComponent],
-  })
-  export class AppModule {}
+})
+export class AppModule {}
 ```
 
 To configure the library globally use the `forRoot` pattern.
@@ -89,15 +89,15 @@ This will override the defaults as described in the [choices.js documentation](h
 @NgModule({
   declarations: [AppComponent],
   imports: [
-  BrowserModule,
-  NgxChoicesModule.forRoot({
-    allowHTML: true,
+    BrowserModule,
+    NgxChoicesModule.forRoot({
+      allowHTML: true,
     }),
-    ],
-    providers: [],
-    bootstrap: [AppComponent],
-    })
-    export class AppModule {}
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
 ```
 
 > If you want to silence the warning from `choices.js` about allowHTML, set it globally as shown above to either true or false.
@@ -130,10 +130,10 @@ Doing so overrides the default configuration of `choices.js` and the ones given 
 
 ```html
 <select
-[choices]="choices"
-[removeItemButton]="true"
-multiple
-ngxChoice
+  [choices]="choices"
+  [removeItemButton]="true"
+  multiple
+  ngxChoice
 ></select>
 
 ```
@@ -142,11 +142,11 @@ For the example above create a property `choices` on the component containing al
 
 ```ts
 public choices = [
-{
-  value: 'Option 1',
-  label: 'Option 1',
-  selected: true,
-  disabled: false,
+  {
+    value: 'Option 1',
+    label: 'Option 1',
+    selected: true,
+    disabled: false,
   },
   {
     value: 'Option 2',
@@ -156,18 +156,18 @@ public choices = [
     customProperties: {
       description: 'Custom description about Option 2',
       random: 'Another random custom property',
-      },
-      },
-      ];
+    },
+  },
+];
 ```
 
 To receive events from the component subscribe to them in the usual angular way:
 
 ```html
 <select
-[choices]="choices"
-(showDropdown)="showDropdown"
-ngxChoice
+  [choices]="choices"
+  (showDropdown)="showDropdown"
+  ngxChoice
 ></select>
 ```
 
@@ -179,9 +179,9 @@ To bind the directive to an angular form add the `[formControl]` property, just 
 
 ```html
 <select
-[choices]="choices"
-[formControl]="control"
-ngxChoice
+  [choices]="choices"
+  [formControl]="control"
+  ngxChoice
 ></select>
 ```
 
