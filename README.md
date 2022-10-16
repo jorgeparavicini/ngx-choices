@@ -57,7 +57,7 @@ With `angular.json`:
     ...,
     }
     }
-    ```
+```
 
 With `scss`:
 
@@ -80,7 +80,7 @@ in the [choices.js documentation](https://github.com/Choices-js/Choices#configur
   bootstrap: [AppComponent],
   })
   export class AppModule {}
-  ```
+```
 
 To configure the library globally use the `forRoot` pattern.
 This will override the defaults as described in the [choices.js documentation](https://github.com/Choices-js/Choices#configuration-options).
@@ -98,7 +98,7 @@ This will override the defaults as described in the [choices.js documentation](h
     bootstrap: [AppComponent],
     })
     export class AppModule {}
-    ```
+```
 
 > If you want to silence the warning from `choices.js` about allowHTML, set it globally as shown above to either true or false.
 
@@ -159,7 +159,7 @@ public choices = [
       },
       },
       ];
-      ```
+```
 
 To receive events from the component subscribe to them in the usual angular way:
 
