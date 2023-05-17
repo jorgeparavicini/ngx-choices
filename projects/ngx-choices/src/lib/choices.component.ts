@@ -12,9 +12,9 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import Choices, {
   Choice,
-  Choices as IChoices,
   ClassNames,
   Group,
+  Choices as IChoices,
   Item,
   Options,
   PositionOptionsType,
