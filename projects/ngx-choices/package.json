@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "description": "A lightweight wrapper for the choices.js library for angular.",
   "author": {
-    "email": "jorge.paravicini@hotmail.com",
+    "email": "j.m.paravicini@gmail.com",
     "name": "Jorge Paravicini"
   },
   "repository": {
@@ -25,9 +25,9 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^14.2.0",
-    "@angular/core": "^14.2.0",
-    "choices.js": "^10.1.0"
+    "@angular/common": "^14.2.0 || ^15.0.0 || ^16.0.0",
+    "@angular/core": "^14.2.0 || ^15.0.0 || ^16.0.0",
+    "choices.js": "^10.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

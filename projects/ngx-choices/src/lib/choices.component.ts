@@ -12,9 +12,10 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import Choices, {
   Choice,
-  Choices as IChoices,
   ClassNames,
+  DEFAULT_CLASSNAMES,
   Group,
+  Choices as IChoices,
   Item,
   Options,
   PositionOptionsType,
@@ -991,7 +992,7 @@ export class ChoicesDirective
 
   private getConfig(): Partial<Options> {
     const config = this.configService?.config;
-    const c = {
+    const c: Partial<Options> = {
       silent: this.silent ?? config.silent,
       items: this.items ?? config.items,
       choices: this.choices ?? config.choices,
@@ -1035,7 +1036,11 @@ export class ChoicesDirective
       uniqueItemText: this.uniqueItemText ?? config.uniqueItemText,
       customAddItemText: this.customAddItemText ?? config.customAddItemText,
       valueComparer: this.valueComparer ?? config.valueComparer,
-      classNames: this.classNames ?? config.classNames,
+      classNames: {
+        ...DEFAULT_CLASSNAMES,
+        ...config.classNames,
+        ...this.classNames,
+      },
       fuseOptions: this.fuseOptions ?? config.fuseOptions,
       labelId: this.labelId ?? config.labelId,
       callbackOnInit: this.callbackOnInit ?? config.callbackOnInit,
