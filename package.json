@@ -6,6 +6,7 @@
     "start": "ng serve ngx-app",
     "build": "ng build ngx-choices",
     "build-watch": "ng build ngx-choices --watch",
+    "build-lib": "ng build ngx-choices --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -34,6 +35,8 @@
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "~14.2.1",
     "@angular/compiler-cli": "^14.0.0",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
@@ -41,6 +44,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.17",
+    "husky": "^8.0.3",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -51,6 +55,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-organize-attributes": "^0.0.5",
     "prettier-plugin-organize-imports": "^3.1.1",
+    "semantic-release": "^21.0.2",
     "typescript": "~4.7.2"
   },
   "packageManager": "yarn@1.22.1"
