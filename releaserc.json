@@ -19,7 +19,7 @@
     [
       "@semantic-release/npm",
       {
-        "pkgRoot": "./dist/ngx-falcon"
+        "pkgRoot": "./dist/ngx-choices"
       }
     ],
     "@semantic-release/github"
