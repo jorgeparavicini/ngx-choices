@@ -1,4 +1,4 @@
-import {Choice, ClassNames, Options} from 'choices.js';
+import { Choice, ClassNames, Options } from 'choices.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface AddItemData {
