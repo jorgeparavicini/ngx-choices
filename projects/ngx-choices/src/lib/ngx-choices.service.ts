@@ -1,17 +1,17 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { Options } from 'choices.js';
+import { ChoiceOptions } from './types.model';
 
 @Injectable({ providedIn: 'root' })
 export class NgxChoicesConfig {
-  public config: Partial<Options>;
+  public config: Partial<ChoiceOptions>;
 
   constructor(
-    @Optional() @Inject(NgxChoicesService) config?: Partial<Options>
+    @Optional() @Inject(NgxChoicesService) config?: Partial<ChoiceOptions>
   ) {
     this.config = config ?? {};
   }
 }
 
-export const NgxChoicesService = new InjectionToken<Partial<Options>>(
+export const NgxChoicesService = new InjectionToken<Partial<ChoiceOptions>>(
   'ngx-choices.config'
 );

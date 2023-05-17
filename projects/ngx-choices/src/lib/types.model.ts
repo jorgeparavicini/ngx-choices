@@ -1,4 +1,4 @@
-import { Choice } from 'choices.js';
+import {Choice, ClassNames, Options} from 'choices.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface AddItemData {
@@ -48,3 +48,7 @@ export interface SearchData {
 export interface HighlightChoiceData {
   el: HTMLElement;
 }
+
+export type ChoiceOptions = Omit<Options, 'classNames'> & {
+  classNames: Partial<ClassNames>;
+};

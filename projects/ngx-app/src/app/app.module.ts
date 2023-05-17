@@ -9,7 +9,10 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgxChoicesModule.forRoot({ allowHTML: true }),
+    NgxChoicesModule.forRoot({
+      allowHTML: true,
+      classNames: { selectedState: '' },
+    }),
     ReactiveFormsModule,
   ],
   providers: [],
