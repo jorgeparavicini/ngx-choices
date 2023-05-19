@@ -661,7 +661,6 @@ export class ChoicesDirective
     this.element.nativeElement.addEventListener('change', () =>
       this.notifyFormChange()
     );
-    console.log(this.type);
   }
 
   public ngOnInit(): void {
