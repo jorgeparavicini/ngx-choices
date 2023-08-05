@@ -600,57 +600,57 @@ export class ChoicesDirective
    * Triggered each time an item is added (programmatically or by the user).
    */
   @Output()
-  public addItem = new EventEmitter<AddItemData>();
+  public addItem = new EventEmitter<CustomEvent<AddItemData>>();
 
   /**
    * Triggered each time an item is removed (programmatically or by the user).
    */
   @Output()
-  public removeItem = new EventEmitter<RemoveItemData>();
+  public removeItem = new EventEmitter<CustomEvent<RemoveItemData>>();
 
   /**
    * Triggered each time an item is highlighted.
    */
   @Output()
-  public highlightItem = new EventEmitter<HighlightItemData>();
+  public highlightItem = new EventEmitter<CustomEvent<HighlightItemData>>();
 
   /**
    * Triggered each time an item is unhighlighted.
    */
   @Output()
-  public unhighlightItem = new EventEmitter<UnhighlightItemData>();
+  public unhighlightItem = new EventEmitter<CustomEvent<UnhighlightItemData>>();
 
   /**
    * Triggered each time a choice is selected by a user,
    * regardless if it changes the value of the input.
    */
   @Output()
-  public choice = new EventEmitter<ChoiceData>();
+  public choice = new EventEmitter<CustomEvent<ChoiceData>>();
 
   /**
    * Triggered when a user types into an input to search choices.
    */
   @Output()
-  public search = new EventEmitter<SearchData>();
+  public search = new EventEmitter<CustomEvent<SearchData>>();
 
   /**
    * Triggered when the dropdown is shown.
    */
   @Output()
-  public dropdownShown = new EventEmitter<null>();
+  public dropdownShown = new EventEmitter<CustomEvent<null>>();
 
   /**
    * Triggered when the dropdown is hidden.
    */
   @Output()
-  public dropdownHidden = new EventEmitter<null>();
+  public dropdownHidden = new EventEmitter<CustomEvent<null>>();
 
   /**
    * Triggered when a choice from the dropdown is highlighted.
    * The el argument is choices.passedElement object that was affected.
    */
   @Output()
-  public highlightChoice = new EventEmitter<HighlightChoiceData>();
+  public highlightChoice = new EventEmitter<CustomEvent<HighlightChoiceData>>();
 
   //#endregion
 
