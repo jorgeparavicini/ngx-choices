@@ -1,1 +1,32 @@
-@import "node_modules/choices.js/public/assets/styles/choices.css";
+@import "choices.js/public/assets/styles/choices.css";
+
+@keyframes around {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.choices__loading--indicator::after, .choices__loading--indicator::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 20px !important;
+  height: 20px !important;
+  border-width: 2px !important;
+  border-color: #333 #333 transparent transparent !important;
+  border-style: solid;
+  border-radius: 20px !important;
+  box-sizing: border-box;
+  animation: around 0.7s ease-in-out infinite;
+  margin-top: -10px !important;
+  right: 11.5px;
+  top: 50%;
+}
+
+.choices__loading--indicator::after {
+  animation: around 0.7s ease-in-out 0.1s infinite;
+  background: transparent;
+}
