@@ -24,7 +24,7 @@ import Choices, {
   Types,
 } from 'choices.js';
 import Fuse from 'fuse.js';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NgxChoicesConfig } from './ngx-choices.service';
 import {
   AddItemData,
@@ -697,7 +697,7 @@ export class ChoicesDirective
 
     if (this.inputElement) {
       this.renderer.listen(this.inputElement, 'input', (event) => {
-        this.searchInput.next(event.target.data);
+        this.searchInput.next(event.target.value);
       });
     }
 
