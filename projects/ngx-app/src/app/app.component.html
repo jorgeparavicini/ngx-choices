@@ -6,6 +6,12 @@
   ngxChoice
 ></select>
 
-<select [choices]="choices" [formControl]="control2" ngxChoice></select>
+<select
+  [choices]="choices$"
+  [isLoading]="loading$"
+  [formControl]="control2"
+  [allowHTML]="false"
+  ngxChoice
+></select>
 
 <input type="text" ngxChoice />

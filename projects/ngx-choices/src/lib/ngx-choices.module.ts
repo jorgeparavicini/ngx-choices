@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { Options } from 'choices.js';
-import { ChoicesDirective } from './choices.component';
+import { ChoicesDirective } from './choices.directive';
 import { NgxChoicesService } from './ngx-choices.service';
-import {ChoiceOptions} from "./types.model";
+import { ChoiceOptions } from './types.model';
 
 @NgModule({
   declarations: [ChoicesDirective],

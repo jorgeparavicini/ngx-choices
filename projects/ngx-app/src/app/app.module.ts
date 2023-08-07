@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
     BrowserModule,
     NgxChoicesModule.forRoot({
       allowHTML: true,
-      classNames: { selectedState: '' },
     }),
     ReactiveFormsModule,
   ],

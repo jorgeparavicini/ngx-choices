@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Choice } from 'choices.js';
+import { BehaviorSubject, delay, Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,14 @@ export class AppComponent {
 
   public control = new FormControl('Option 2');
   public control2 = new FormControl('Option 2');
+
+  public loading$ = new BehaviorSubject(false);
+
+  public choices$ = of([{ value: 'value', label: 'label' }]).pipe(
+    tap(() => this.loading$.next(true)),
+    delay(2000),
+    tap(() => this.loading$.next(false))
+  );
 
   public choices = [
     {
@@ -32,4 +42,14 @@ export class AppComponent {
       },
     },
   ];
+
+  public getChoices(searchValue: string): Observable<Choice[]> {
+    console.log('Fetching');
+    return of([
+      {
+        value: searchValue + 'sda',
+        label: searchValue + ' sad',
+      },
+    ]).pipe(delay(1000));
+  }
 }

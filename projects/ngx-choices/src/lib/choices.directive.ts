@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
@@ -8,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import Choices, {
@@ -22,6 +24,7 @@ import Choices, {
   Types,
 } from 'choices.js';
 import Fuse from 'fuse.js';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { NgxChoicesConfig } from './ngx-choices.service';
 import {
   AddItemData,
@@ -46,11 +49,14 @@ type Callback = (value: unknown) => void;
   ],
 })
 export class ChoicesDirective
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor, AfterViewInit
 {
   private instance!: Choices;
 
   private onChange?: Callback;
+
+  private subscriptions: Subscription[] = [];
+  private inputElement?: HTMLInputElement;
 
   private get type(): 'text' | 'select-one' | 'select-multiple' {
     return this.element.nativeElement.type;
@@ -128,7 +134,7 @@ export class ChoicesDirective
    * @default []
    */
   @Input()
-  public choices?: Choice[];
+  public choices?: Choice[] | Observable<Choice[]>;
 
   /**
    * The amount of choices to be rendered within the dropdown list `("-1" indicates no limit)`. This is useful if you have a lot of choices where it is easier for a user to use the search area to find a choice.
@@ -592,6 +598,12 @@ export class ChoicesDirective
   @Input()
   public callbackOnCreateTemplates?: ((template: Types.StrToEl) => void) | null;
 
+  /**
+   * An Observable indicating whether data fetching is in progress. Emits true for loading and false when done.
+   */
+  @Input()
+  public isLoading?: Observable<boolean>;
+
   //#endregion
 
   //#region Outputs
@@ -652,11 +664,19 @@ export class ChoicesDirective
   @Output()
   public highlightChoice = new EventEmitter<CustomEvent<HighlightChoiceData>>();
 
+  /**
+   * Triggered when a user types into an input to search choices.
+   * This is the raw event and bypasses the default search mechanism.
+   */
+  @Output()
+  public searchInput = new EventEmitter<string>();
+
   //#endregion
 
   constructor(
     private configService: NgxChoicesConfig,
-    private element: ElementRef
+    private element: ElementRef,
+    private renderer: Renderer2
   ) {
     this.element.nativeElement.addEventListener('change', () =>
       this.notifyFormChange()
@@ -665,6 +685,23 @@ export class ChoicesDirective
 
   public ngOnInit(): void {
     this.instance = new Choices(this.element.nativeElement, this.getConfig());
+    if (this.choices instanceof Observable) {
+      this.setupObservableChoices();
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    this.inputElement = this.element.nativeElement
+      .closest('.choices')
+      .querySelector('.choices__input.choices__input--cloned');
+
+    if (this.inputElement) {
+      this.renderer.listen(this.inputElement, 'input', (event) => {
+        this.searchInput.next(event.target.data);
+      });
+    }
+
+    this.setupLoadingObservable();
   }
 
   /**
@@ -682,6 +719,7 @@ export class ChoicesDirective
 
   public ngOnDestroy(): void {
     this.instance.destroy();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   public writeValue(value: string | string[]): void {
@@ -697,6 +735,35 @@ export class ChoicesDirective
       this.setValue(value);
     } else {
       this.setChoiceByValue(value);
+    }
+  }
+
+  private setupObservableChoices() {
+    if (!(this.choices instanceof Observable)) {
+      console.error('Can not setup choices observable.');
+      return;
+    }
+
+    const obs = this.choices as Observable<Choice[]>;
+
+    const sub = obs.subscribe((choices) => {
+      this.setChoices(choices, 'value', 'label', true);
+    });
+
+    this.subscriptions.push(sub);
+  }
+
+  private setupLoadingObservable() {
+    const sub = this.isLoading?.subscribe((val) => {
+      if (val) {
+        this.showLoading();
+      } else {
+        this.hideLoading();
+      }
+    });
+
+    if (sub) {
+      this.subscriptions.push(sub);
     }
   }
 
@@ -983,6 +1050,22 @@ export class ChoicesDirective
     return this.instance.enable();
   }
 
+  public showLoading(): void {
+    const choicesElement = this.element.nativeElement.closest('.choices');
+
+    if (choicesElement) {
+      this.renderer.addClass(choicesElement, 'choices__loading--indicator');
+    }
+  }
+
+  public hideLoading(): void {
+    const choicesElement = this.element.nativeElement.closest('.choices');
+
+    if (choicesElement) {
+      this.renderer.removeClass(choicesElement, 'choices__loading--indicator');
+    }
+  }
+
   //#endregion
 
   private notifyFormChange() {
@@ -991,10 +1074,15 @@ export class ChoicesDirective
 
   private getConfig(): Partial<Options> {
     const config = this.configService?.config;
+
+    const parsedChoices = Array.isArray(this.choices)
+      ? this.choices
+      : config?.choices;
+
     const c: Partial<Options> = {
       silent: this.silent ?? config.silent,
       items: this.items ?? config.items,
-      choices: this.choices ?? config.choices,
+      choices: parsedChoices,
       renderChoiceLimit: this.renderChoiceLimit ?? config.renderChoiceLimit,
       maxItemCount: this.maxItemCount ?? config.maxItemCount,
       addItems: this.addItems ?? config.addItems,
@@ -1050,6 +1138,7 @@ export class ChoicesDirective
       (key) =>
         c[key as keyof Options] === undefined && delete c[key as keyof Options]
     );
+
     return c;
   }
 
