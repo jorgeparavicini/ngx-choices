@@ -47,6 +47,7 @@ type Callback = (value: unknown) => void;
       multi: true,
     },
   ],
+  exportAs: 'ngxChoice',
 })
 export class ChoicesDirective
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor, AfterViewInit
@@ -1064,6 +1065,11 @@ export class ChoicesDirective
     if (choicesElement) {
       this.renderer.removeClass(choicesElement, 'choices__loading--indicator');
     }
+  }
+
+  public isEmpty(): boolean {
+    const value = this.getValuesAsArray();
+    return value.length === 0;
   }
 
   //#endregion
