@@ -1149,7 +1149,10 @@ export class ChoicesDirective
   }
 
   private getValuesAsArray(): string[] {
-    let value = this.instance.getValue();
+    let value = this.instance?.getValue();
+    if (value === undefined) {
+      return [];
+    }
     if (!Array.isArray(value)) {
       value = [value] as string[] | Item[];
     }
